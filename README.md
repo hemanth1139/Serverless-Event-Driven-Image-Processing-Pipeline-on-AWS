@@ -6,25 +6,7 @@ An event-driven, serverless pipeline that automatically resizes images uploaded 
 
 ## Architecture
 
-```
-Browser (S3 Static Site)
-        │
-        │  POST /get-upload-url
-        ▼
-  API Gateway  ──►  Signer Lambda (Node.js)
-                          │
-                          │  Pre-signed URL
-                          ▼
-                    S3 Source Bucket  (image uploaded directly from browser)
-                          │
-                          │  S3 Event Notification (ObjectCreated)
-                          ▼
-                  Processor Lambda (Python + Pillow)
-                     │              │               │
-                     ▼              ▼               ▼
-              S3 Dest Bucket    DynamoDB         SNS Topic
-              (resized image)  (metadata)     (email notification)
-```
+![Architecture](./screenshots/architecture.svg)
 
 ---
 
@@ -190,9 +172,13 @@ The pre-signed URL was generated with a specific `ContentType`. The browser `PUT
 
 ---
 
+## Architecture Diagram
+
+![Architecture](./screenshots/architecture.svg)
+
 ## Screenshots
 
-See the [`/screenshots`](./screenshots/) folder for AWS Console screenshots of the S3 buckets, Lambda functions, DynamoDB table, and API Gateway configuration.
+> This project was built and tested on a live AWS account. The account has since been closed, so AWS Console screenshots are unavailable. The architecture diagram above, source code, and documentation reflect the actual implementation.
 
 ---
 
