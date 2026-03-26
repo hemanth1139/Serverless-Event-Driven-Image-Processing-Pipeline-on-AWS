@@ -1,0 +1,90 @@
+<svg width="100%" viewBox="0 0 680 720" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <style>
+    text { font-family: sans-serif; fill: #1a1a1a; }
+    .th { font-size: 14px; font-weight: 600; }
+    .ts { font-size: 12px; fill: #555; }
+    .arr { stroke: #888; stroke-width: 1.5; fill: none; }
+  </style>
+</defs>
+
+<!-- Browser -->
+<rect x="260" y="30" width="160" height="56" rx="8" fill="#f1f0e8" stroke="#b4b2a9" stroke-width="0.5"/>
+<text class="th" x="340" y="52" text-anchor="middle" dominant-baseline="central">Browser</text>
+<text class="ts" x="340" y="70" text-anchor="middle" dominant-baseline="central">Static site on S3</text>
+
+<!-- Arrow: POST -->
+<line x1="340" y1="86" x2="340" y2="124" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="348" y="110" dominant-baseline="central">POST /get-upload-url</text>
+
+<!-- API Gateway -->
+<rect x="240" y="124" width="200" height="56" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+<text class="th" x="340" y="146" text-anchor="middle" dominant-baseline="central" fill="#3C3489">API Gateway</text>
+<text class="ts" x="340" y="164" text-anchor="middle" dominant-baseline="central" fill="#534AB7">HTTP endpoint</text>
+
+<!-- Arrow: Invokes -->
+<line x1="340" y1="180" x2="340" y2="218" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="348" y="204" dominant-baseline="central">Invokes</text>
+
+<!-- Signer Lambda -->
+<rect x="220" y="218" width="240" height="56" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/>
+<text class="th" x="340" y="240" text-anchor="middle" dominant-baseline="central" fill="#085041">Signer Lambda</text>
+<text class="ts" x="340" y="258" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">Node.js · generates pre-signed URL</text>
+
+<!-- Dashed return arrow: Pre-signed URL back to browser -->
+<path d="M220 246 L140 246 L140 58 L260 58" fill="none" stroke="#888" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#arrow)"/>
+<text class="ts" x="62" y="155" text-anchor="middle" dominant-baseline="central" transform="rotate(-90,62,155)">Pre-signed URL</text>
+
+<!-- Arrow: PUT direct upload -->
+<line x1="340" y1="274" x2="340" y2="312" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="348" y="298" dominant-baseline="central">PUT (direct upload)</text>
+
+<!-- S3 Source Bucket -->
+<rect x="200" y="312" width="280" height="56" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/>
+<text class="th" x="340" y="334" text-anchor="middle" dominant-baseline="central" fill="#085041">S3 — Source bucket</text>
+<text class="ts" x="340" y="352" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">Stores original uploaded images</text>
+
+<!-- Arrow: ObjectCreated event -->
+<line x1="340" y1="368" x2="340" y2="406" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="348" y="392" dominant-baseline="central">ObjectCreated event</text>
+
+<!-- Processor Lambda -->
+<rect x="180" y="406" width="320" height="56" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/>
+<text class="th" x="340" y="428" text-anchor="middle" dominant-baseline="central" fill="#085041">Processor Lambda</text>
+<text class="ts" x="340" y="446" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">Python · Pillow · resize + validate</text>
+
+<!-- Fan-out arrows -->
+<path d="M260 462 L125 462 L125 530" fill="none" class="arr" marker-end="url(#arrow)"/>
+<line x1="340" y1="462" x2="340" y2="530" class="arr" marker-end="url(#arrow)"/>
+<path d="M420 462 L555 462 L555 530" fill="none" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Fan-out labels -->
+<text class="ts" x="178" y="488" text-anchor="middle" dominant-baseline="central">Save resized</text>
+<text class="ts" x="340" y="488" text-anchor="middle" dominant-baseline="central">Write metadata</text>
+<text class="ts" x="500" y="488" text-anchor="middle" dominant-baseline="central">Notify user</text>
+
+<!-- S3 Dest -->
+<rect x="40" y="530" width="170" height="56" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+<text class="th" x="125" y="552" text-anchor="middle" dominant-baseline="central" fill="#3C3489">S3 — Dest bucket</text>
+<text class="ts" x="125" y="570" text-anchor="middle" dominant-baseline="central" fill="#534AB7">Resized images</text>
+
+<!-- DynamoDB -->
+<rect x="255" y="530" width="170" height="56" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+<text class="th" x="340" y="552" text-anchor="middle" dominant-baseline="central" fill="#3C3489">DynamoDB</text>
+<text class="ts" x="340" y="570" text-anchor="middle" dominant-baseline="central" fill="#534AB7">Image metadata</text>
+
+<!-- SNS -->
+<rect x="470" y="530" width="170" height="56" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+<text class="th" x="555" y="552" text-anchor="middle" dominant-baseline="central" fill="#3C3489">SNS</text>
+<text class="ts" x="555" y="570" text-anchor="middle" dominant-baseline="central" fill="#534AB7">Email notification</text>
+
+<!-- CloudWatch note -->
+<rect x="40" y="640" width="600" height="34" rx="6" fill="none" stroke="#ccc" stroke-width="0.5" stroke-dasharray="4 3"/>
+<text class="ts" x="340" y="660" text-anchor="middle" dominant-baseline="central">CloudWatch — Logs and monitoring for both Lambda functions</text>
+
+<!-- IAM note -->
+<text class="ts" x="340" y="700" text-anchor="middle" dominant-baseline="central">IAM roles enforce least-privilege access between all services</text>
+</svg>
