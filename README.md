@@ -172,10 +172,6 @@ The pre-signed URL was generated with a specific `ContentType`. The browser `PUT
 
 ---
 
-## Architecture Diagram
-
-![Architecture](./screenshots/architecture.svg)
-
 ## Screenshots
 
 > This project was built and tested on a live AWS account. The account has since been closed, so AWS Console screenshots are unavailable. The architecture diagram above, source code, and documentation reflect the actual implementation.
